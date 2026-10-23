@@ -1,27 +1,33 @@
-# Flow2Lyrics AI — MVP 0.1
+# Flow2Lyrics AI v0.2
 
-A runnable English phonetic phrase-ranking demo. This is NOT yet audio-aware.
+## What's new
+- Record your voice using Streamlit's microphone control (`st.audio_input`).
+- Upload WAV vocal files, listen back, and estimate duration / vocal activity.
+- Upload and play an instrumental (MP3 or WAV).
+- Match **manually entered ARPABET phonemes** against a small list of English phrases.
 
-## Run
-```bash
-pip install -r requirements.txt
-streamlit run app.py
+## Honest limitations
+This is **not** yet an automatic phoneme recognizer. The audio is used for playback,
+duration, and activity measurements. It does not drive the lyric suggestions.
+The default phoneme sequences are rough interpretations of the demo.
+Typed notes do not automatically convert to phonemes. No live synchronized recording
+over a beat. The Meaningful Sound Match mode is a placeholder.
+
+## Deploy to Streamlit Community Cloud
+1. Extract this ZIP.
+2. Open your existing Flow2Lyrics-AI GitHub repository.
+3. Replace the root-level `app.py`, `requirements.txt`, and `README.md`
+   with the corresponding files in this ZIP (commit the changes).
+4. Your deployed Streamlit app should rebuild automatically. If not,
+   use the Streamlit app management page to reboot/redeploy.
+5. Open your app's HTTPS URL on Samsung Chrome and grant microphone permission.
+
+## Local run
+```sh
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
 ```
 
-## Architecture
-Input text or audio -> phoneme recognition / editable phoneme transcription -> candidate phrase generation -> phoneme edit-distance ranking -> lyrics editor.
-
-Current MVP implements **editable demo phonemes**, a small candidate phrase dictionary, CMUdict English word pronunciations via `pronouncing`, and normalized Levenshtein distance via `rapidfuzz`.
-
-## Limitations
-- The default phonemes are a rough subjective interpretation of the example, not an automatic transcription of the text box.
-- Only the first two comma-separated phrases are ranked, using the two editable phoneme inputs.
-- No beat detection, melody analysis, audio upload, phoneme recognition, large phrase search, or language model yet.
-- Prototype similarity is a normalized edit-distance heuristic, not calibrated acoustic confidence.
-
-## Next steps
-1. Add mic/file input and a phoneme recognizer, with manual correction.
-2. Build candidate phrases from a large licensed English lexicon and beam search.
-3. Rank with phonetic feature-aware alignment, vowel duration and stress.
-4. Add beat/onset alignment and user auditioning.
-5. Add the Meaningful Sound Match mode as a separate reranker.
+## Next development milestone
+Use a singing-capable phone/phoneme recognizer and a much larger candidate
+generation index, then add onset and melody alignment.

@@ -1,3 +1,5 @@
-streamlit>=1.35
-pronouncing>=0.2
-rapidfuzz>=3.0
+streamlit>=1.40,<2
+numpy>=1.26,<3
+soundfile>=0.12,<1
+rapidfuzz>=3.0,<4
+pronouncing>=0.2,<1
