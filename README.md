@@ -1,33 +1,17 @@
-# Flow2Lyrics AI v0.2
+# Flow2Lyrics AI v0.3
 
-## What's new
-- Record your voice using Streamlit's microphone control (`st.audio_input`).
-- Upload WAV vocal files, listen back, and estimate duration / vocal activity.
-- Upload and play an instrumental (MP3 or WAV).
-- Match **manually entered ARPABET phonemes** against a small list of English phrases.
+Two paths: (1) upload a song already containing vocals and instrumental, or (2) upload an instrumental and record vocals in the browser.
 
-## Honest limitations
-This is **not** yet an automatic phoneme recognizer. The audio is used for playback,
-duration, and activity measurements. It does not drive the lyric suggestions.
-The default phoneme sequences are rough interpretations of the demo.
-Typed notes do not automatically convert to phonemes. No live synchronized recording
-over a beat. The Meaningful Sound Match mode is a placeholder.
+A small Whisper speech-recognition model drafts English lyrics. Users correct the transcript, see words that aren't in the English pronunciation dictionary, and receive preliminary spelling-based replacement suggestions. **This is not yet acoustic phonetic matching**, and unknown dictionary words are not necessarily invented. Mixed audio is not separated into vocals and beat. Browser recording is not synchronized to the instrumental.
 
-## Deploy to Streamlit Community Cloud
-1. Extract this ZIP.
-2. Open your existing Flow2Lyrics-AI GitHub repository.
-3. Replace the root-level `app.py`, `requirements.txt`, and `README.md`
-   with the corresponding files in this ZIP (commit the changes).
-4. Your deployed Streamlit app should rebuild automatically. If not,
-   use the Streamlit app management page to reboot/redeploy.
-5. Open your app's HTTPS URL on Samsung Chrome and grant microphone permission.
+## Update existing Streamlit deployment
+Replace root-level `app.py`, `requirements.txt`, and `README.md` in your existing GitHub repository. Commit changes and wait for Streamlit to rebuild. First transcription may download the model and take time. A free cloud instance may be slow or run out of memory.
 
-## Local run
-```sh
+## Local
+```
 python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-## Next development milestone
-Use a singing-capable phone/phoneme recognizer and a much larger candidate
-generation index, then add onset and melody alignment.
+## Next milestone
+Separate vocals from instrumental, extract phonemes directly from vocals without forcing dictionary words, compare with candidates by acoustic/phonetic edit distance and syllable timing, and let users audition aligned suggestions.
